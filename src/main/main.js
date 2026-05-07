@@ -19,11 +19,16 @@ const createWindow = () => {
     show: false,
   });
 
-  const indexPath = path.join(__dirname, '../..', 'dist', 'index.html');
-  const startURL = isDev
-    ? 'http://localhost:5173'
-    : `file://${indexPath}`;
+  let startURL;
+  if (isDev) {
+    startURL = 'http://localhost:5173';
+  } else {
+    const appRoot = path.dirname(app.getAppPath());
+    const indexPath = path.join(appRoot, 'dist', 'src', 'renderer', 'index.html');
+    startURL = `file://${indexPath}`;
+  }
 
+  console.log('App Root:', path.dirname(app.getAppPath()));
   console.log('Loading:', startURL);
 
   mainWindow.loadURL(startURL);
@@ -34,6 +39,8 @@ const createWindow = () => {
 
   mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
     console.error('Failed to load:', errorCode, errorDescription);
+    const errorWindow = new BrowserWindow({ width: 600, height: 400 });
+    errorWindow.loadURL(`data:text/html,<html><body><h1>Failed to load</h1><p>URL: ${startURL}</p><p>Error: ${errorDescription}</p></body></html>`);
   });
 
   mainWindow.on('closed', () => {
