@@ -19,14 +19,21 @@ const createWindow = () => {
     show: false,
   });
 
+  const indexPath = path.join(__dirname, '../..', 'dist', 'index.html');
   const startURL = isDev
     ? 'http://localhost:5173'
-    : `file://${path.join(__dirname, '../../dist/src/renderer/index.html')}`;
+    : `file://${indexPath}`;
+
+  console.log('Loading:', startURL);
 
   mainWindow.loadURL(startURL);
 
-  mainWindow.once('ready-to-show', () => {
+  mainWindow.webContents.on('did-finish-load', () => {
     mainWindow?.show();
+  });
+
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error('Failed to load:', errorCode, errorDescription);
   });
 
   mainWindow.on('closed', () => {

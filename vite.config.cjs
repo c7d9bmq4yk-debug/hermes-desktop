@@ -10,11 +10,7 @@ module.exports = defineConfig({
     },
   },
   build: {
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'src/renderer/index.html'),
-      },
-    },
     outDir: 'dist',
+    emptyOutDir: true,
   },
 })
