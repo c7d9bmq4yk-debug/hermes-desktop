@@ -4,6 +4,8 @@ const isDev = require('electron-is-dev');
 
 let mainWindow = null;
 
+const __dirname = path.dirname(__filename);
+
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1200,
@@ -23,12 +25,11 @@ const createWindow = () => {
   if (isDev) {
     startURL = 'http://localhost:5173';
   } else {
-    const appRoot = path.dirname(app.getAppPath());
-    const indexPath = path.join(appRoot, 'dist', 'src', 'renderer', 'index.html');
+    const indexPath = path.join(__dirname, '../../dist/src/renderer/index.html');
     startURL = `file://${indexPath}`;
   }
 
-  console.log('App Root:', path.dirname(app.getAppPath()));
+  console.log('__dirname:', __dirname);
   console.log('Loading:', startURL);
 
   mainWindow.loadURL(startURL);
@@ -40,7 +41,7 @@ const createWindow = () => {
   mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
     console.error('Failed to load:', errorCode, errorDescription);
     const errorWindow = new BrowserWindow({ width: 600, height: 400 });
-    errorWindow.loadURL(`data:text/html,<html><body><h1>Failed to load</h1><p>URL: ${startURL}</p><p>Error: ${errorDescription}</p></body></html>`);
+    errorWindow.loadURL(`data:text/html,<html><body><h1>Failed to load</h1><p>__dirname: ${__dirname}</p><p>URL: ${startURL}</p><p>Error: ${errorDescription}</p></body></html>`);
   });
 
   mainWindow.on('closed', () => {
