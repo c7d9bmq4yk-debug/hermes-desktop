@@ -44,8 +44,7 @@
     "appId": "com.hermes.desktop",
     "productName": "Hermes Agent",
     "directories": {
-      "output": "release",
-      "buildResources": "build"
+      "output": "release"
     },
     "files": [
       "dist/**/*",
@@ -56,22 +55,17 @@
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64", "ia32"]
+          "arch": ["x64"]
         },
         {
           "target": "portable",
           "arch": ["x64"]
         }
-      ],
-      "icon": "build/icon.ico",
-      "publisherName": "Hermes Team"
+      ]
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "installerIcon": "build/icon.ico",
-      "uninstallerIcon": "build/icon.ico",
-      "installerHeaderIcon": "build/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Hermes Agent"
@@ -80,16 +74,14 @@
       "target": [
         {
           "target": "dmg",
-          "arch": ["x64", "arm64"]
+          "arch": ["x64"]
         },
         {
           "target": "zip",
-          "arch": ["x64", "arm64"]
+          "arch": ["x64"]
         }
       ],
-      "icon": "build/icon.icns",
-      "category": "public.app-category.productivity",
-      "hardenedRuntime": true,
+      "hardenedRuntime": false,
       "gatekeeperAssess": false
     },
     "linux": {
@@ -97,28 +89,8 @@
         {
           "target": "AppImage",
           "arch": ["x64"]
-        },
-        {
-          "target": "snap",
-          "arch": ["x64"]
-        },
-        {
-          "target": "deb",
-          "arch": ["x64"]
         }
-      ],
-      "icon": "build/icons",
-      "category": "Utility",
-      "maintainer": "Hermes Team",
-      "vendor": "Hermes Team",
-      "synopsis": "Hermes Agent Desktop Client",
-      "description": "A powerful AI agent desktop client with Hermes integration"
-    },
-    "publish": {
-      "provider": "github",
-      "owner": "your-username",
-      "repo": "hermes-desktop",
-      "releaseType": "release"
+      ]
     }
   }
 }
