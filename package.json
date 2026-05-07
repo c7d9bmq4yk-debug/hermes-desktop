@@ -1,0 +1,124 @@
+{
+  "name": "hermes-desktop",
+  "version": "1.0.0",
+  "description": "Hermes Agent Desktop Client",
+  "main": "dist/main.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
+    "dev:vite": "vite",
+    "dev:electron": "electron .",
+    "build": "tsc && vite build",
+    "build:electron": "electron-builder",
+    "package": "npm run build && npm run build:electron",
+    "test": "echo \"Running tests...\""
+  },
+  "keywords": [
+    "hermes",
+    "agent",
+    "desktop"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.4",
+    "electron-is-dev": "^2.0.0",
+    "lucide-react": "^0.294.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^4.2.4",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "concurrently": "^8.2.0",
+    "electron": "^28.3.3",
+    "electron-builder": "^24.9.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.0.0"
+  },
+  "build": {
+    "appId": "com.hermes.desktop",
+    "productName": "Hermes Agent",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64", "ia32"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "publisherName": "Hermes Team"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Hermes Agent"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.productivity",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        },
+        {
+          "target": "snap",
+          "arch": ["x64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icons",
+      "category": "Utility",
+      "maintainer": "Hermes Team",
+      "vendor": "Hermes Team",
+      "synopsis": "Hermes Agent Desktop Client",
+      "description": "A powerful AI agent desktop client with Hermes integration"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "your-username",
+      "repo": "hermes-desktop",
+      "releaseType": "release"
+    }
+  }
+}
